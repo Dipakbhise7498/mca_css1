@@ -4,6 +4,22 @@
     height: 300px;
     border:1px solid #000;
     background-color: black;
-    margin 100px auto;
+    marginL: 100px auto;
+
+}
+.box h2
+{
+    color:aqua;
+    font-family: dss,dfdf,df,df,dd,;
+    font size:22px;
+    font-weight:bold;
+    text-align:center;
+
+}
+.box p
+{
+    color:blueviolet;
+    text-align: justify;
     
+}
 }
