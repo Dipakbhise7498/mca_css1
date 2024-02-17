@@ -1,0 +1,20 @@
+{% extends 'navigation.html' %}
+{% load static %}
+{% block body %}
+<div class="container" style = "margin-top : 150px">
+      <h2 class = text-center style = "font-family : 'Monotype Corsiva' ; color : #E6120E">About Us</h2>
+      <div class="row">
+          <div class="col-sm-5">
+              <img src="{% static 'images/natural farming hero desktop.jpg' %}" width=400 height = 400 class="img-responsive">        
+          </div>
+          <div class="col-sm-7" style = "font-weight : bold ; margin-top : 30px">
+            <h3>The e-Agriculture Community</h3>
+            <p>e-Agriculture is a global Community of Practice, where people from all over the world exchange information, ideas, and resources related to the use of information and communication technologies (ICT) for sustainable agriculture and rural development.</p>
+             
+                <p>e-Agriculture  Community is made up of over 12,000 members from 170 countries and territories, members are information and communication specialists, researchers, farmers, students, policy makers, business people, development practitioners, and others.</p>
+          </div>
+      </div>
+  </div>
+  
+
+{% endblock %}

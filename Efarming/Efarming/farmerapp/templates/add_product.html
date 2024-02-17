@@ -1,0 +1,48 @@
+{% extends 'navigation.html' %}
+{% block body %}
+{% load static %}
+<div class="container">
+    <h2 style="margin-top:20px" align="center">Add Product</h2><hr>
+
+<div class="container-fluid" style="width:80%;margin-top:2%">
+<form method="post" action="" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">Product Name</label>
+      <input type="text" class="form-control" placeholder="Enter Product Name" name="pname" id="inputEmail4">
+    </div>
+    <div class="form-group col-md-6">
+    <label for="exampleInputPassword1">Product Image</label>
+    <input type="file" class="form-control" id="exampleInputPassword1" name="img" value="choose file">
+</div></div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+      <label for="inputState">Category</label>
+      <select id="inputState" class="form-control" name="cat" required>
+        <option>----Select Category----</option>
+          {% for i in cat %}
+        <option value="{{i.name}}">{{i.name}}</option>
+          {% endfor %}
+      </select>
+    </div>
+
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">Product Price</label>
+      <input type="number" class="form-control" name="price" placeholder="Enter Price" id="inputEmail4">
+    </div></div>
+    <div class="form-group">
+    <label for="exampleFormControlTextarea1">Description</label>
+    <textarea class="form-control" id="exampleFormControlTextarea1" name="desc" rows="3"></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+</div>
+</div>
+
+{% if error %}
+<script>
+    alert('1 Product Added Successfully');
+</script>
+{% endif %}
+{% endblock %}

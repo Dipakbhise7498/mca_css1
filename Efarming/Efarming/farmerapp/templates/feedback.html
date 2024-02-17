@@ -1,0 +1,46 @@
+{% extends 'navigation.html' %}
+{% block body %}
+{% load static %}
+<div class="container">
+    <h2 style="margin-top:20px" align="center">Send Feedback</h2><hr>
+
+<div class="container-fluid" style="width:80%;margin-top:2%">
+<form method="post" action="" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">Date</label>
+      <input type="text" class="form-control"  name="date" value="{{date1}}" id="inputEmail4" readonly>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputPassword4">Username</label>
+      <input type="text" class="form-control" name="uname" value="{{request.user.username}}" id="inputPassword4" readonly>
+    </div>
+  </div>
+    <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">Email</label>
+      <input type="email" class="form-control" name="email" value="{{request.user.email}}" id="inputEmail4" readonly>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputPassword4">Contact</label>
+      <input type="text" class="form-control" name="contact" value="{{pro.contact}}" id="inputPassword4" readonly>
+    </div>
+    </div>
+
+    <div class="form-group">
+    <label for="exampleFormControlTextarea1">Description</label>
+    <textarea class="form-control" id="exampleFormControlTextarea1" name="desc" rows="3"></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+</div>
+</div>
+
+{% if error %}
+<script>
+    alert('Send feedback Successfully');
+</script>
+{% endif %}
+
+{% endblock %}

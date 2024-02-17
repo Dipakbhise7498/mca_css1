@@ -1,0 +1,82 @@
+{% extends 'navigation.html' %}
+{% block body %}
+{% load static %}
+<div class="container">
+    <h2 style="margin-top:20px" align="center">Edit Profile</h2><hr>
+
+<div class="container-fluid" style="width:80%;margin-top:2%">
+<form method="post" action="" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">First Name</label>
+      <input type="text" class="form-control" value="{{pro.user.first_name}}" name="fname" id="inputEmail4">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputPassword4">Last Name</label>
+      <input type="text" class="form-control" name="lname" value="{{pro.user.last_name}}" id="inputPassword4">
+    </div>
+  </div>
+    <div class="form-row">
+    <div class="form-group col-md-12">
+      <label for="inputEmail4">User Name</label>
+      <input type="text" class="form-control" name="uname" value="{{pro.user.username}}" id="inputEmail4" readonly>
+    </div>
+  </div>
+        <div class="form-row">
+<div class="form-group col-md-6">
+    <label for="exampleInputEmail1">Email</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" value="{{pro.user.email}}">
+  </div>
+
+  <div class="form-group col-md-6">
+    <label for="exampleInputPassword1">Contact</label>
+    <input type="text" class="form-control" id="exampleInputPassword1" value="{{pro.contact}}" name="contact">
+  </div>
+        </div>
+        <div class="form-row">
+    <div class="form-group col-md-12">
+    <label for="exampleInputPassword1">City</label>
+    <input type="text" class="form-control" id="exampleInputPassword1" value="{{pro.city}}" name="city">
+  </div>
+        </div>
+    <div class="form-row">
+    <div class="form-group col-md-6">
+        <label for="exampleInputPassword1">Date of Birth</label>
+    <input type="date" class="form-control" id="exampleInputPassword1" name="date">
+  </div>
+        <div class="form-group col-md-6">
+        <label for="exampleInputPassword1">Date of Birth</label>
+    <input type="text" class="form-control" id="exampleInputPassword1" value="{{pro.dob}}" readonly>
+        </div>
+        </div>
+    <div class="form-row">
+
+    <div class="form-group col-md-12">
+    <label for="exampleInputPassword1">Full Address</label>
+    <input type="text" class="form-control" id="exampleInputPassword1" value="{{pro.address}}" name="add">
+  </div>
+    </div>
+    <div class="form-row">
+<div class="form-group col-md-6">
+    <label for="exampleInputPassword1">Image</label>
+    <input type="file" class="form-control" id="exampleInputPassword1" name="img" value="choose file">
+</div>
+        <div class="form-group col-md-6">
+    <img src="{{pro.image.url}}" style="width:150px;height:150px">
+</div>
+    </div>
+
+  <button type="submit" class="btn btn-primary" style="margin-bottom:5%">update</button>
+</form>
+</div>
+</div>
+
+{% if error %}
+<script>
+    alert('Update Successfully');
+    window.location = "{% url 'profile' %}";
+</script>
+{% endif %}
+
+{% endblock %}

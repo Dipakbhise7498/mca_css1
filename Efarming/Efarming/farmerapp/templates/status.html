@@ -1,0 +1,27 @@
+{% extends 'navigation.html' %}
+{% block body %}
+{% load static %}
+<div class="container">
+    <h2 style="margin-top:20px" align="center">Change Status</h2><hr>
+
+<div class="container-fluid" style="width:70%;margin-top:10%">
+<form method="post" action="">
+    {% csrf_token %}
+  <div class="form-group col-md-12">
+    <label for="exampleInputEmail1">Booking Id</label>
+    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="book" value="{{book.booking_id}}" readonly>
+  </div>
+  <div class="form-group col-md-12">
+      <label for="inputState">Status</label>
+      <select id="inputState" class="form-control" name="status">
+          {% for i in stat %}
+        <option value="{{i.name}}">{{i.name}}</option>
+          {% endfor %}
+      </select>
+    </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,118 @@
+
+{% extends 'navigation.html' %}
+{% load static %}
+{% block body %}
+<div class="container">
+<center><h3 style="color:red">PAYMENT DETAIL</h3><hr> </center>
+<center>
+<div style="width:55%;background-color:lightgrey" class="jumbotron">
+<div class="container">
+    <div class="row">
+        <!-- You can make it whatever width you want. I'm making it full width
+             on <= small devices and 4/12 page width on >= medium devices -->
+        <div class="col-xs-4 col-md-4">
+            <img style="width:150px;height:100px" class="img-responsive pull-right" src="{% static 'images/atm1.jpg'%}">
+        </div>
+        <div class="col-xs-4 col-md-4">
+            <img style="width:150px;height:100px" class="img-responsive pull-right" src="{% static 'images/atm2.jpg'%}">
+        </div>
+        <div class="col-xs-4 col-md-4">
+            <img style="width:150px;height:100px" class="img-responsive pull-right" src="{% static 'images/atm3.jpg'%}">
+        </div>
+    </div>
+
+     <form action="/original_payment/?book_id={{book.id}}&total={{total}}" method="POST">
+         {% csrf_token %}
+
+
+ <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label  style="margin:10px" for="cardNumber">CARD NUMBER</label>
+                                    <div class="input-group">
+                                         <ion-icon style="font-size:40px;margin-right:4px" name="card"></ion-icon><input style="margin:10px
+                                            type="tel"
+                                            class="form-control"
+                                            name="cardnumber"
+                                            placeholder="Valid Card Number"
+                                            autocomplete="cc-number"
+                                            required autofocus
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class=" col-md-6">
+                                <div class="form-group">
+                                    <label  for="cardExpiry"><span class="hidden-xs"></span><span class="visible-xs-inline">EXPIRY</span> DATE </label>
+                                    <input
+                                        type="tel"
+                                        class="form-control"
+                                        name="cardex"
+                                        placeholder="MM / YY"
+                                        autocomplete="cc-exp"
+                                        required
+                                    />
+                                </div>
+                            </div><br>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="cardCVC">CVC CODE </label>
+                                    <input
+                                        type="tel"
+                                        class="form-control"
+                                        name="cvc"
+                                        placeholder="CVC"
+                                        autocomplete="cc-csc"
+                                        required
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label style="margin:10px" for="cardCVC">Card Holder Name</label>
+                                    <input style="margin:10px"
+                                        type="tel"
+                                        class="form-control"
+                                        name="cvc"
+                                        placeholder="Card Holder Name"
+                                        autocomplete="cc-csc"
+                                        required
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                            <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+
+                                    <label style="margin:10px" for="couponCode">Amount In Rs.</label>
+                                    <input style="margin:10px" type="text" class="form-control" value="{{total}}" name="amount" readonly/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input style="color:white;font-size:20px" type="submit" class="btn btn-success btn-lg btn-block" name="payment" value="payment">
+							</div>
+
+                             <div class="col-md-6">
+                                <a href="{% url 'view_booking' %}" class="btn btn-success btn-lg btn-block" ><h6>Cash On Delivery</h6></a>
+							</div>
+                        </div>
+                        </form>
+                    </div>
+</div></center></div>
+
+{% if error %}
+<script>
+    alert('Booking order Successfully');
+    window.location="{% url 'view_booking' %}";
+</script>
+{% endif %}
+
+{% endblock %}

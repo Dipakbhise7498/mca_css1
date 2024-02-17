@@ -1,0 +1,339 @@
+{% extends 'navigation.html' %}
+{% load static %}
+{% load custom_tags %}
+{% block body %}
+
+<link rel = stylesheet href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap.min.css">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+  <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
+
+  <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js" defer></script>
+
+  <!-- shop css -->
+  <link href="{% static 'raw/css/shop.css' %}" type="text/css" rel="stylesheet" media="all">
+  <link href="{% static 'raw/css/style.css' %}" type="text/css" rel="stylesheet" media="all">
+  <link href="{% static 'raw/css/checkout.css' %}" type="text/css" rel="stylesheet" media="all">
+  <!-- font-awesome icons -->
+  <link href="{% static 'raw/css/font-awesome.css' %}" rel="stylesheet">
+  <!-- //Custom Theme files -->
+  <!-- online-fonts -->
+  <!-- logo -->
+  <link href="//fonts.googleapis.com/css?family=Fredericka+the+Great" rel="stylesheet">
+  <!-- titles -->
+  <link href="//fonts.googleapis.com/css?family=Merriweather+Sans:300,300i,400,400i,700,700i,800,800i" rel="stylesheet">
+  <!-- body -->
+  <link href="//fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+
+
+
+<style>
+
+  #example_length{
+    text-align:left;
+    margin-bottom:2%;
+  }
+
+  .dataTables_length{
+    text-align:left;
+  }
+
+  .paginate_button{
+      border:1px solid gray;
+      padding:6px;
+      cursor: pointer;
+      color:white;
+      background-color:green;
+      margin:1px;
+  }
+
+  .dataTables_info{
+    display:none;
+  }
+
+</style>
+
+
+<div class="innerf-pages section">
+    <div class="container">
+  <div class="container">
+    <h4 class="rad-txt">
+        <span class="abtxt1">Product</span>
+        <span class="abtext"> Details</span>
+    </h4>
+</div>
+<div class="row">
+      <div class="col-md-4">
+            <div class="grid images_3_of_2">
+                <div class="flexslider1">
+                    <ul class="slides">
+                        <li data-thumb="{{data.image.url}}">
+                            <div class="thumb-image">
+                                <img src="{{data.image.url}}" width="300" data-imagezoom="true" alt=" " class="img-responsive"> </div>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-6">
+                <h3>{{data.name}}
+                    <span></span>
+                </h3>
+            <p>by {{data.user.first_name}} {{data.user.last_name}}
+                <a href="#">{{data.author}}</a>
+            </p>
+            <div class="caption">
+
+                <ul class="rating-single">
+                    <li>
+                        <a href="#">
+                            <span class="fa fa-star yellow-star" aria-hidden="true"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="fa fa-star yellow-star" aria-hidden="true"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="fa fa-star yellow-star" aria-hidden="true"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="fa fa-star yellow-star" aria-hidden="true"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="fa fa-star yellow-star" aria-hidden="true"></span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="clearfix"> </div>
+                <h6>
+                    Rs. {{data.price}}.00</h6>
+            </div>
+            <div class="desc_single">
+                <h5>Description</h5>
+                <p>{{data.desc}}</p>
+            </div>
+
+            
+                <div class="occasional">
+                    <h5>Specifications</h5>
+                    <ul class="single_specific">
+                        <li>
+                            <span>Category :</span> {{data.category.name}}</li>
+                        
+                    </ul>
+
+                </div>
+                <br>
+                <form align="center" action="{% url 'add_cart' data.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary">Add to Cart</button>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <div class="occasional">
+                    <h5>Farmer Contact Details</h5>
+
+                    <ul class="single_specific">
+                        {% if data.user.is_staff %}
+                            <li>
+                                <span>Product uploaded by admin</span>
+                            </li>
+                        {% else %}
+                        <li>
+                            <span>Name :</span> {{data.user.first_name}} {{data.user.last_name}}
+                            <img  src="{{data.user.profile_set.all.0.image.url}}" style="width:100px">
+                        </li>
+                        <li>
+                            <span>Mobile :</span> {{data.user.profile_set.all.0.contact}}</li>
+                        <li>
+                            <span>Email :</span> {{data.user.email}}</li>
+                        <li>
+                            <span>Address :</span> {{data.user.profile_set.all.0.address}}, {{data.user.profile_set.all.0.city}}</li>
+                        
+                      {% endif %}
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+
+
+
+          
+
+            
+            <div class="clearfix"></div>
+        </div>
+            
+            <div class="occasion-cart">
+                <div class="chr single-item single_page_b">
+                    {% if data.user.id != request.user.id and data.user.is_staff %}
+                    <form action="{% url 'add_cart' data.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="chr-cart pchr-cart">
+                            <i class="fa fa-cart-plus" aria-hidden="true"></i> Add to cart</button>
+                        <a href="#" data-toggle="modal" data-target="#myModal1"></a>
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
+
+
+        </div>
+        <div class="clearfix"> </div>
+        
+        
+        <div class="container" {% if request.user.profile_set.all.0.user_type == "Buyer" or data.status == "Booked" %} style="display:none"{% endif %}>
+            <h4 class="rad-txt">
+                <span class="abtxt1">seller</span>
+                <span class="abtext"> comment</span>
+            </h4>
+        </div>
+        
+        <form method="post" action="" enctype="multipart/form-data" {% if request.user.profile_set.all.0.user_type == "Buyer" or data.status == "Booked" %} style="display:none"{% endif %}>
+            {% csrf_token %}
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputEmail4">Product Price</label>
+                <input type="text" class="form-control" placeholder="Enter Product Price" name="pname" id="inputEmail4" required>
+            </div>
+            <div class="form-group col-md-6">
+            <label for="exampleInputPassword1">Image</label>
+            <input type="file" class="form-control" id="exampleInputPassword1" name="img" value="choose file" required>
+    </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-12">
+        <label for="exampleFormControlTextarea1">Description</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" name="desc" rows="3" required></textarea>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+</div>
+
+<br>
+
+
+
+
+<!-- /new_arrivals -->
+<div class="section singlep_btm">
+    <div class="container">
+        <div class="new_arrivals">
+            <h4 class="rad-txt">
+                <span class="abtxt1">featured</span>
+                <span class="abtext"> products</span>
+            </h4>
+            <!-- row3 -->
+            {% for i in latest %}
+                    <div class="col-md-3 product-men">
+                        <div class="product-chr-info chr">
+                            <div class="thumbnail">
+                                <a href="{% url 'product_detail' i.id %}">
+                                    <img src="{{i.image.url}}" alt="">
+                                </a>
+                            </div>
+                            <div class="caption">
+                                <h4>{{i.name}}</h4>
+                                <p>{{i.author}}</p>
+                                <div class="matrlf-mid">
+                                    <ul class="rating">
+                                        <li>
+                                            <a href="#">
+                                                <span class="fa fa-star yellow-star" aria-hidden="true"></span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <span class="fa fa-star yellow-star" aria-hidden="true"></span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <span class="fa fa-star yellow-star" aria-hidden="true"></span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <span class="fa fa-star gray-star" aria-hidden="true"></span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <span class="fa fa-star gray-star" aria-hidden="true"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <ul class="price-list">
+                                        <li>Status</li>
+                                        <li>
+                                            {{i.status}}
+                                        </li>
+                                    </ul>
+
+                                    <div class="clearfix"> </div>
+                                </div>
+                                
+                                
+                                <a href="{% url 'product_detail' i.id %}">
+                                    <button class="chr-cart pchr-cart">Contact to buyer
+                                    </button>
+                                </a>
+                                
+                                
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <h4>No Any Product Available</h4>
+                    {% endfor %}
+            <!-- //row3 -->
+            <div class="clearfix"></div>
+        </div>
+        <!--//new_arrivals-->
+        <div class="clearfix"></div>
+
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        //Only needed for the filename of export files.
+        //Normally set in the title tag of your page.
+        document.title='Simple DataTable';
+        // DataTable initialisation
+        $('#example').DataTable(
+            {
+                "dom": '<"dt-buttons"Bf><"clear">lirtp',
+                "paging": true,
+                "autoWidth": true,
+                "buttons": [
+                    'colvis',
+                    'copyHtml5',
+            'csvHtml5',
+                    'excelHtml5',
+            'pdfHtml5',
+                    'print'
+                ]
+            }
+        );
+    });
+    </script>
+
+{% endblock %}

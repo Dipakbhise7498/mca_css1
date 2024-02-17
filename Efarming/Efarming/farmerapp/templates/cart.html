@@ -1,0 +1,120 @@
+{% extends 'navigation.html' %}
+{% block body %}
+
+<center><h2 style="color:red;margin-top:2%">View Cart</h2></center><hr>
+
+{% if not cart %}
+<h1 align="center" style="color:blue">{{message}}</h1>
+{% else %}
+
+<form method="get" action="{% url 'booking' book %}">
+<center><div class="container" style="border:1px solid white">
+<div class="row">
+    <div class="col-md-4" style="height:100px;">
+                <center><a href="{% url 'view_product' 0 %}" style="margin-top:1%;width:100%" class="btn btn-lg btn-info text-light text-capitalize"><ion-icon style="margin-right:8px" name="pricetags"></ion-icon>Continue Shopping</a></center>
+            </div>
+
+    <div class="col-md-4" style="height:100px;">
+                <center><input type="submit" style="margin-top:1%;width:50%" class="btn btn-lg btn-info text-light text-capitalize" value="Buy Now"></center>
+   </div>
+
+    <div class="col-md-4" style="height:100px;">
+                <center><a style="margin-top:1%;width:100%;border:1px solid black" class="btn btn-default btn-lg text-dark text-capitalize">Total : {{total}}</a></center>
+            </div>
+</div>
+    </div>
+</center>
+{% for i in cart %}
+<center>
+    <style>
+        .container{
+            border:1px solid black;
+            border-radius:6px;
+            margin-bottom:5%;
+        }.container1 ,.contain{
+            border:1px solid black;
+            border-radius:6px;
+            width:70%;
+            border:1px solid black;
+
+        }
+    </style>
+<div class="container" style="margin-top:2%;height:150px;width:80%">
+    <div class="row" style="height:90%">
+        <div class="col-md-4" style="height:120px">
+            <img src="{{i.product.image.url}}" style="width:30%;height:100px;border:1px solid darkgray;margin-top:5%">
+        </div>
+
+        <div class="col-md-4" style="height:100px">
+            <h5 style="margin-top:5%">{{i.product.name}}</h5><hr>
+        <h6>Price : Rs.{{i.product.price}}
+
+              {% comment %} {{i.product.price}} X  <input type="number" id="quantity-{{forloop.counter}}" onblur="count_quantity({{forloop.counter}})" name="quantity-{{forloop.counter}}" min="1" max="5" value="1"> = <span id="total-{{forloop.counter}}">{{i.product.price}}</span> {% endcomment %}
+                <input type="hidden" id="amount-{{forloop.counter}}" name="amount-{{forloop.counter}}" value="{{i.product.price}}">
+            </h6>
+        <p>{{i.product.desc}}</p>
+        </div>
+        <div class="col-md-4" style="height:100px;">
+                <center><a href="{% url 'remove_cart' i.id %}" style="margin-top:15%" class="btn btn-sm btn-danger text-light text-capitalize"><ion-icon name="trash"></ion-icon>Remove</a></center>
+        </div>
+    </div>
+</div>
+    </center>
+{% endfor %}
+    <input type="hidden" id="stage" name="stage" value="{{i.product.price}}">
+
+|<div class="container" style="border:1px solid white">
+<div class="row">
+    <div class="col-md-4" style="height:100px;">
+                <center><a href="{% url 'view_product' 0 %}" style="margin-top:1%;width:100%" class="btn btn-lg btn-info text-light text-capitalize"><ion-icon style="margin-right:8px" name="pricetags"></ion-icon>Continue Shopping</a></center>
+            </div>
+    <div class="col-md-4" style="height:100px;">
+                <center><input type="submit" style="margin-top:1%;width:50%" class="btn btn-lg btn-info text-light text-capitalize" value="Buy Now"></center>
+   </div>
+    </form>
+    <div class="col-md-4" style="height:100px;">
+                <center><a style="margin-top:1%;width:100%;border:1px solid black" class="btn btn-default btn-lg text-dark text-capitalize">Total : {{total}}</a></center>
+            </div>
+</div>
+    {% endif %}
+    </div>
+
+<hr>
+<div class="container-fluid">
+    <h2>Recommended products related to your purchases</h2><hr>
+    <div class="carousel-inner row w-100 mx-auto">
+			{% for j in pro %}
+				<div class="carousel-item col-md-3 active"><div class="card">
+					<center><img class="card-img-top img-fluid" align="center" src="{{j.image.url}}" style="width:160px;height:170px;float:center" alt="card-img"></center>
+   						<div class="card-body">
+   						<h4 class="card-title">{{j.name}} Rs.{{j.price}}</h4>
+   						<p class="card-text">{{j.desc}}</p>
+   						<form align="center" action="{% url 'add_cart' j.id %}" method="post">
+	                        {% csrf_token %}
+                            <button type="submit" class="btn btn-primary">Add to Cart</button>
+</form>
+   					</div>
+   				</div>
+   			</div>
+			{% endfor %}
+		</div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+function count_quantity(get_id){
+        var quant = "quantity-"+get_id;
+        var amount = "amount-"+get_id;
+        var get_total = "total-"+get_id;
+
+        var quant1 = document.getElementById(quant).value;
+        var amount1 = document.getElementById(amount).value;
+
+         if(quant1 < 1){
+            document.getElementById(quant).value = 1;
+        }
+        var total = document.getElementById(amount).value * quant1;
+        document.getElementById(get_total).innerHTML = total;
+}
+</script>
+
+{% endblock %}

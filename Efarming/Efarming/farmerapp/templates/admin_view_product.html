@@ -1,0 +1,46 @@
+{% extends 'navigation.html' %}
+{% block body %}
+<center><h2 style="color:red;margin-top:2%">View Product</h2></center><hr>
+ <div class="container" style="margin-top:4%">
+<table class="table table-bordered" id="myTable">
+  <thead>
+  <tr>
+    <th>Product Name</th>
+    <th>Image</th>
+      <th> Category</th>
+    <th>Price</th>
+    <th> Description</th>
+    {% if request.user.is_staff %}<th> Uploaded By</th>{% endif %}
+    <th>Action</th>
+
+  </tr>
+  </thead>
+   <tbody>
+
+    {% for i in pro %}
+
+  <tr>
+
+    <td>{{i.name}}</td>
+    <td><img src="{{i.image.url}}" style="width:50px;height:50px"></td>
+      <td>{{i.category.name}}</td>
+      <td>{{i.price}}</td>
+      <td>{{i.desc}}</td>
+      {% if request.user.is_staff %}<td>{{i.user.username}}</td>{% endif %}
+    <td><a href="{% url 'delete_product' i.id %}" onclick="return confirm('Are you sure?')"><button class="button button1">Delete</button></a></td>
+
+  </tr>
+
+    {% endfor %}
+    </tbody>
+{{count}}
+</table>
+
+ </div>
+<script>
+  {% for i in message %}
+  alert("{{i}}")
+  {% endfor %}
+</script>
+
+{% endblock %}

@@ -1,0 +1,90 @@
+{% extends 'navigation.html' %}
+{% block body %}
+{% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+
+  <!-- Custom styles for this template -->
+  <link href="{% static 'css/simple-sidebar.css' %}" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <div class="sidebar-heading">Start Filtering</div>
+      <div class="list-group list-group-flush">
+        <a href="{% url 'view_product' 0 %}" class="list-group-item list-group-item-action bg-light">All Product</a>
+          {% for i in cat %}
+        <a href="{% url 'view_product' i.id %}" class="list-group-item list-group-item-action bg-light">{{i.name}}</a>
+          {% endfor %}
+      </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </nav>
+
+      <div class="container-fluid">
+      <center><h2 style="color:red">View Product</h2></center>
+<hr>
+ <div class="container-fluid">
+   	<h1 class="text-center mt-5 mb-5">
+   	</h1>
+	 <h2>{{cat1.name}}</h2><hr>
+   	<div id="{{i.id}}" class="carousel slide" data-ride="carousel">
+   		<div class="carousel-inner row w-100 mx-auto">
+			{% for j in pro1 %}
+				<div class="carousel-item col-md-3 active"><div class="card">
+					<center>
+            <a href="/product_detail/{{j.id}}">
+            <img class="card-img-top img-fluid" align="center" src="{{j.image.url}}" style="width:160px;height:170px;float:center" alt="card-img">
+            </a></center>
+   						<div class="card-body">
+   						<h4 class="card-title">{{j.name}} Rs.{{j.price}}</h4>
+   						<p class="card-text">{{j.desc}}</p>
+   						<form align="center" action="{% url 'add_cart' j.id %}" method="post">
+	                        {% csrf_token %}
+                            <button type="submit" class="btn btn-primary">Add to Cart</button>
+              </form>
+   					</div>
+   				</div>
+   			</div>
+			{% endfor %}
+		</div>
+	</div>
+ </div>
+
+      </div></div>
+    <!-- /#page-content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+  </script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+{% endblock %}

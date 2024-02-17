@@ -1,0 +1,54 @@
+{% extends 'navigation.html' %}
+{% block body %}
+{% if error %}
+<script>
+    alert('1 Product Deleted Successfully');
+    window.location("{% url 'view_feedback' %}");
+</script>
+{% endif %}
+<center><h2 style="color:red;margin-top:2%">View Feedback</h2></center><hr>
+<div class="container" style="margin-top:5%">
+
+<table class="table table-bordered" id="myTable" >
+  <thead>
+  <tr>
+    <th>Username</th>
+    <th>Contact Number</th>
+      <th> Email Id</th>
+    <th>Date</th>
+      <th>Message</th>
+    <th>Remove</th>
+  </tr>
+  </thead>
+   <tbody>
+
+    {% for i in feed %}
+
+  <tr>
+
+    <td>{{i.profile.user.username}}</td>
+    <td>{{i.profile.contact}}</td>
+      <td>{{i.profile.user.email}}</td>
+      <td>{{i.date}}</td>
+      <td>{{i.message1}}</td>
+      <td><a href="{% url 'delete_feedback' i.id %}" onclick="return confirm('Are you sure?')"><button class="button button1">Delete</button></a></td>
+
+  </tr>
+
+    {% endfor %}
+
+    </tbody>
+{{count}}
+</table>
+
+
+</div>
+
+<script>
+            var el_up = document.getElementById("GFG_UP");
+
+            el_up.innerHTML =
+                "Click on the LINK for further confirmation.";
+        </script>
+
+{% endblock %}

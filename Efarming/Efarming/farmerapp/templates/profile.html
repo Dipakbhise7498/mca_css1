@@ -1,0 +1,69 @@
+{% extends 'navigation.html' %}
+{% load static %}
+{% block body %}
+<div class="container">
+    <h2 style="margin-top:20px" align="center">{% if request.user.id == pro.user.id %}User Profile{% else %}Buyer Profile{% endif %}</h2><hr>
+
+<div  class="container-fluid" style="width:80%;margin-bottom:5%">
+    <hr><div class="row">
+        <div class="col-md-6">
+            <strong>Full Name:</strong>
+        </div>
+        <div class="col-md-6">
+            {{pro.user.first_name}} {{pro.user.last_name}} {% if pro.user_type == 'Seller' %}(Farmer){% endif %}
+        </div>
+    </div><hr>
+     <div class="row">
+        <div class="col-md-6">
+            <strong>Customer Pic:</strong>
+        </div>
+        <div class="col-md-6">
+           <img src="{{pro.image.url}}" style="width:150px;height:150px">
+        </div>
+
+    </div><hr>
+    <div class="row">
+        <div class="col-md-6">
+            <strong>Email Id :</strong>
+        </div>
+        <div class="col-md-6">
+            {{pro.user.email}}
+        </div>
+    </div><hr>
+     <div class="row">
+        <div class="col-md-6">
+            <strong>Contact :</strong>
+        </div>
+        <div class="col-md-6">
+            {{pro.contact}}
+        </div>
+     </div><hr>
+    <div class="row">
+        <div class="col-md-6">
+            <strong>Date of Birth :</strong>
+        </div>
+        <div class="col-md-6">
+            {{pro.dob}}
+        </div>
+    </div><hr>
+     <div class="row">
+        <div class="col-md-6">
+            <strong>City :</strong>
+        </div>
+        <div class="col-md-6">
+            {{pro.city}}
+        </div>
+     </div><hr><div class="row">
+        <div class="col-md-6">
+            <strong>Address :</strong>
+        </div>
+        <div class="col-md-6">
+            {{pro.address}}
+        </div>
+    </div><hr>
+    {% if request.user.id == pro.user.id %}
+        <a href="{% url 'edit_profile' %}"><button class="btn btn-primary" style="width:100%;margin-bottom:5%">Edit Profile</button></a>
+    {% endif %}
+</div>
+</div>
+{% endblock %}

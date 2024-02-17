@@ -1,0 +1,77 @@
+{% extends 'navigation.html' %}
+{% block body %}
+
+<center><h2 style="color:red;margin-top:2%">View Booking</h2></center><hr>
+<div class="container" style="margin-top:5%">
+</div>
+ <div class="container">
+<table class="table table-bordered" id="myTable">
+  <thead>
+  <tr>
+    <th>Sr. No</th>
+    <th>Booking ID</th>
+    <th>Booking Date</th>
+      <th>Farmer</th>
+      <th>Total</th>
+      <th>Status</th>
+    <th>View Product</th>
+    <th>Cancel Booking</th>
+  </tr>
+  </thead>
+   <tbody>
+
+{% for i in book %}
+
+  <tr>
+      <td>{{forloop.counter}}</td>
+    <td>{{i.booking_id}}</td>
+    <td>{{i.book_date}}</td>
+      <td>
+        <a href="farmer_detail/{{i.id}}">
+          <button class="btn btn-success">{{i.farmer}}</button>
+        </a>
+      </td>
+      <td>{{i.total}}</td>
+      <td>{{i.status.name}}</td>
+      <td><a href="{% url 'booking_detail' i.booking_id i.id %}"><button class="button button1">detail</button></a></td>
+      <td><a href="{% url 'delete_booking' i.booking_id i.id %}" onclick="return confirm('Are you sure?')"><button class="button button1" id="#delete">cancel</button></a></td>
+
+  </tr>
+   {% endfor %}
+
+    </tbody>
+</table>
+
+ </div>
+<div class="container">
+    <h2>Recommended products related to your purchases</h2><hr>
+    <div class="carousel-inner row w-100 mx-auto">
+			{% for j in pro %}
+				<div class="carousel-item col-md-3 active"><div class="card">
+					<center>
+            <a href="/product_detail/{{j.id}}">
+              <img class="card-img-top img-fluid" align="center" src="{{j.image.url}}" style="width:160px;height:170px;float:center" alt="card-img">
+            </a>
+          </center>
+   						
+            <div class="card-body">
+   						<h4 class="card-title">{{j.name}} Rs.{{j.price}}</h4>
+   						<p class="card-text">{{j.desc}}</p>
+   						<form align="center" action="{% url 'add_cart' j.id %}" method="post">
+	                        {% csrf_token %}
+                            <button type="submit" class="btn btn-primary">Add to Cart</button>
+</form>
+   					</div>
+   				</div>
+   			</div>
+			{% endfor %}
+		</div>
+</div>
+
+<script>
+            var el_up = document.getElementById("GFG_UP");
+
+            el_up.innerHTML =
+                "Click on the LINK for further confirmation.";
+        </script>
+{% endblock %}

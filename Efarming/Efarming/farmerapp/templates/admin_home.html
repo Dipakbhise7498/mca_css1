@@ -1,0 +1,64 @@
+{% extends 'navigation.html' %}
+{% load static %}
+{% block body %}
+
+<style>
+.glow {
+  font-size: 80px;
+  color: #fff;
+  text-align: center;
+  -webkit-animation: glow 1s ease-in-out infinite alternate;
+  -moz-animation: glow 1s ease-in-out infinite alternate;
+  animation: glow 1s ease-in-out infinite alternate;
+}
+
+@-webkit-keyframes glow {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
+  }
+  
+  to {
+    text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+  }
+}
+
+/* Rounded border */
+hr.rounded {
+  border-top: 8px solid lightblue;
+  border-radius: 5px;
+}
+</style>
+</style>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+<br>
+<center>
+<div class="container" style="margin-top:10%;height:150px;width:80%">
+    <div class="row" style="height:100%">
+        <div class="col-md-3">
+            <a href="{% url 'view_user' %}"><h1>Total User</h1>
+            <h2 style="color:blue">{{total_customer}}</h2>
+			<hr class="rounded"></a>
+        </div>
+
+        <div class="col-md-3">
+          <a href="{% url 'view_farmer' %}"><h1>Total Farmer</h1>
+          <h2 style="color:blue">{{seller}}</h2>
+    <hr class="rounded"></a>
+      </div>
+
+        <div class="col-md-3">
+           <a href="{% url 'admin_viewBooking' %}"><h1>Total Booking</h1>
+            <h2 style="color:blue">{{total_book}}</h2>
+			<hr class="rounded"></a>
+        </div>
+
+        <div class="col-md-3">
+		<a href="{% url 'admin_view_product' %}">
+            <h1>Total Product</h1>
+            <h2 style="color:blue">{{total_pro}}</h2>
+			<hr class="rounded"></a>
+        </div>
+    </div>
+</div>
+</center>
+{% endblock %}

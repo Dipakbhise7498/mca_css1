@@ -1,0 +1,41 @@
+{% extends 'navigation.html' %}
+{% block body %}
+<center><h2 style="color:red;margin-top:2%">View Category</h2></center><hr>
+<div class="container" style="margin-top:5%">
+<table class="table table-bordered" id="myTable">
+  <thead>
+  <tr>
+    <th>Product Name</th>
+    <th>Delete</th>
+  </tr>
+  </thead>
+   <tbody>
+
+    {% for i in pro %}
+
+  <tr>
+
+    <td>{{i.name}}</td>
+    <td><a href="{% url 'delete_category' i.id %}" onclick="return confirm('Are you sure?')"><button class="button button1">delete</button></a></td>
+  </tr>
+
+    {% endfor %}
+    </tbody>
+{{count}}
+</table>
+
+ </div>
+<script>
+            var el_up = document.getElementById("GFG_UP");
+
+            el_up.innerHTML =
+                "Click on the LINK for further confirmation.";
+        </script>
+{% if error %}
+<script>
+    alert('1 Product Deleted Successfully');
+    window.location("{% url 'view_feedback' %}");
+</script>
+{% endif %}
+
+{% endblock %}

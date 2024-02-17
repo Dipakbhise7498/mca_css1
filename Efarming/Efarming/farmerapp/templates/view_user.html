@@ -1,0 +1,63 @@
+{% extends 'navigation.html' %}
+{% load static %}
+{% block body %}
+<style>
+    .container{
+    border-radius:6px;
+    margin:2%;
+    }
+    .container-fluid{
+    margin-top:5%;
+    }
+</style>
+<center><h2 style="color:red;margin-top:4%">View {% if data %}Farmer{% else %}User{% endif %} Detail</h2></center>
+<div  class="container-fluid">
+    <center>
+    <div class="container">
+        <table class="table table-bordered" id="myTable">
+  <thead>
+  <tr>
+    <th>Image</th>
+    <th>First Name</th>
+    <th>Last Name</th>
+      <th>Contact</th>
+      <th>City</th>
+    <th>Email Id</th>
+    {% if data %}<th>Status</th>{% endif %}
+    <th>Delete</th>
+  </tr>
+  </thead>
+   <tbody>
+
+    {% for i in user %}
+  <tr>
+
+    <td><img src="{{i.image.url}}" style="width:100px;height:90px"></td>
+    <td>{{i.user.first_name}}</td>
+    <td>{{i.user.last_name}}</td>
+      <td>{{i.contact}}</td>
+      <td>{{i.city}}</td>
+      <td>{{i.user.email}}</td>
+      {% if data %}<td><a href="{% url 'change_user_status' i.id %}" onclick="return confirm('Are you sure?')"><button class="button button1">{{i.status}}</button></a></td>{% endif %}
+    <td><a href="{% url 'delete_user' i.user.id %}" onclick="return confirm('Are you sure?')"><button class="button button1">delete</button></a></td>
+  </tr>
+
+    {% endfor %}
+    </tbody>
+
+</table>
+
+ </div></center>
+
+
+</div>
+
+<script>
+            var el_up = document.getElementById("GFG_UP");
+
+            el_up.innerHTML =
+                "Click on the LINK for further confirmation.";
+        </script>
+
+
+{% endblock %}

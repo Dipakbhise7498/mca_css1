@@ -7,10 +7,10 @@
 }
 .container
 {
-    width: 100%;
+    width: 85%;
     padding-left: 2%;
     min-height:100px;
-    border: 1px solid #000;
+   /* border: 1px solid #000;*/
     margin:auto;
 
 }
@@ -18,10 +18,15 @@
 {
     width: 100%;
     min-height: 60px;
-    background-color: cornflowerblue;
-    color: blue;
+    background-color: red;
+    color: navy;
     padding: 10px;
     font-size: 24px;
+    text-align: center;
+}
+.container .logo:hover
+{
+ background-color: white;
 }
 .container .menu
 {
@@ -42,7 +47,7 @@
 }
 .menu a:hover
 {
-    background-color: crimson;
+    background-color: rgb(234, 9, 9);
     color: white;
 
 }
@@ -51,7 +56,7 @@
     width: 100%;
     height:600px ;
     margin-bottom: 10px;
-    background-color: darkgreen;
+    background-color: rgb(191, 17, 61);
     margin-top: 10px;
 
 }
@@ -85,12 +90,13 @@
 {
     width: 100%;
     height: 70px;
-    background-color: aqua;
+    background-color: brown;
     columns: white;
     margin-top: 10px;
     padding: 10px;
     text-align: center;
     font-size: 1.4em;
+    text-align: center;
 }
 
 

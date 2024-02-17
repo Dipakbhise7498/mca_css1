@@ -1,0 +1,135 @@
+{% extends 'carousel.html' %}
+{% block b %}
+{% load static %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+
+
+<hr>
+
+	<center><form class="" action="" method="get">
+	<div class="input-group mb-3" style="width:30%">
+  		<input type="text" class="form-control" placeholder="search" name="search" aria-describedby="basic-addon2" value="{{request.GET.search}}">
+	  <div class="input-group-append">
+		  <button class="btn btn-outline-secondary" type="submit"><i class="fa fa-search"></i></button>
+	  </div>
+	</div>
+</form></center>
+
+{% if not search_pro %}
+
+{% for i in cat %}
+ <div class="container-fluid">
+   	<h1 class="text-center mt-5 mb-5">
+   	</h1>
+	 <h2>{{i.name}}</h2><hr>
+   	<div id="{{i.id}}" class="carousel slide" data-ride="carousel">
+   		<div class="carousel-inner row w-100 mx-auto">
+			{% for j in pro %}
+			{% if i.name == j.category.name %}
+			{% if forloop.counter in num %}
+				<div class="carousel-item col-md-3 active"><div class="card">
+					<center>
+						<a href="/product_detail/{{j.id}}">
+							<img class="card-img-top img-fluid" align="center" src="{{j.image.url}}" style="width:160px;height:170px;float:center" alt="card-img">
+						</a>
+					</center>
+   						<div class="card-body">
+   						<h4 class="card-title">{{j.name}} Rs.{{j.price}}</h4>
+   						<p class="card-text">{{j.desc}}</p>
+							<form align="center" action="{% url 'add_cart' j.id %}" method="post">
+								{% csrf_token %}
+							<button type="submit" class="btn btn-primary">Add to Cart</button>
+</form>
+   					</div>
+   				</div>
+   			</div>
+
+
+				{% else %}
+				<div class="carousel-item col-md-3">
+   				<div class="card">
+					<center><img class="card-img-top img-fluid" align="center" src="{{j.image.url}}" style="width:160px;height:170px;float:center" alt="card-img"></center>
+   						<div class="card-body">
+   						<h4 class="card-title">{{j.name}} Rs.{{j.price}}</h4>
+   						<p class="card-text">{{j.desc}}</p>
+<form align="center" action="{% url 'add_cart' j.id %}" method="post">
+	{% csrf_token %}
+							<button type="submit" class="btn btn-primary">Add to Cart</button>
+</form>   					</div>
+   				</div>
+   			</div>
+
+			{% endif %}
+	 		{% endif %}
+			{% endfor %}
+			<a class="carousel-control-prev" href="#{{i.id}}" role="button" data-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="sr-only">Previous</span>
+			</a>
+  			    <a class="carousel-control-next" href="#{{i.id}}" role="button" data-slide="next">
+					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					<span class="sr-only">Next</span></a>
+		</div>
+	</div>
+ </div>
+{% endfor %}
+{% else %}
+<div class="container-fluid">
+	<hr>
+    <h2>Search for "{{request.GET.search}}"</h2><hr>
+    <div class="carousel-inner row w-100 mx-auto">
+			{% for j in search_pro %}
+				<div class="carousel-item col-md-3 active"><div class="card">
+					<center><img class="card-img-top img-fluid" align="center" src="{{j.image.url}}" style="width:160px;height:170px;float:center" alt="card-img"></center>
+   						<div class="card-body">
+   						<h4 class="card-title">{{j.name}} Rs.{{j.price}}</h4>
+   						<p class="card-text">{{j.desc}}</p>
+   						<form align="center" action="{% url 'add_cart' j.id %}" method="post">
+	                        {% csrf_token %}
+                            <button type="submit" class="btn btn-primary">Add to Cart</button>
+</form>
+   					</div>
+   				</div>
+   			</div>
+			{% endfor %}
+		</div>
+</div>
+{% endif %}
+{% if request.user.is_authenticated %}
+<div class="container-fluid">
+	<hr>
+    <h2>Recommended products related to your purchases</h2><hr>
+    <div class="carousel-inner row w-100 mx-auto">
+			{% for j in product %}
+				<div class="carousel-item col-md-3 active"><div class="card">
+					<center><img class="card-img-top img-fluid" align="center" src="{{j.image.url}}" style="width:160px;height:170px;float:center" alt="card-img"></center>
+   						<div class="card-body">
+   						<h4 class="card-title">{{j.name}} Rs.{{j.price}}</h4>
+   						<p class="card-text">{{j.desc}}</p>
+   						<form align="center" action="{% url 'add_cart' j.id %}" method="post">
+	                        {% csrf_token %}
+                            <button type="submit" class="btn btn-primary">Add to Cart</button>
+</form>
+   					</div>
+   				</div>
+   			</div>
+			{% endfor %}
+		</div>
+</div>
+{% endif %}
+
+
+
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="{% static 'js/jquery.js' %}"></script>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+ <script src="{% static 'js/jquery.js' %}"></script>
+
+{% endblock %}
