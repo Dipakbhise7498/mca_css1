@@ -7,7 +7,7 @@
 }
 .container
 {
-    width: 80%;
+    width: 85%;
     min-height: 100px;
     /* border: 2px solid #000; */
     margin: auto;
@@ -21,7 +21,7 @@
 
     width: 45%;
     min-height: 60px;
-    background-color: purple;
+    background-color: rgb(128, 0, 0);
     float: left;
 }
 .logo h1
@@ -32,7 +32,7 @@
 .main-logo-menu .menu{
     width: 50%;
     min-height: 60px;
-    background-color: purple;
+    background-color: rgb(9, 24, 233);
     float: right;
     padding: 15px;
 }
@@ -46,14 +46,14 @@
 }
 .menu a:hover
 {
-    background-color: lightgreen;
+    background-color: rgb(64, 9, 132);
     color: black;
 }
 .slider
 {
     width: 100%;
     min-height: 300px;
-    background-color: lightgray;
+    background-color: salmon;
     margin-top: 10px;
 }
 
@@ -72,7 +72,7 @@
 {
     width: 20%;
     min-height: 300px;
-    background-color: purple;
+    background-color: rgb(128, 0, 17);
     float: left;
 
 }
@@ -115,7 +115,7 @@
 {
     width: 100%;
     min-height: 60px;
-    background-color: purple;
+    background-color: rgb(92, 128, 0);
     margin-top: 10px;
     color: white;
     text-align: center;
