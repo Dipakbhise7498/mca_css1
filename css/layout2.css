@@ -7,7 +7,7 @@
 }
 .container
 {
-    width: 80%;
+     width: 80%; 
     min-height: 100px;
     /* border: 2px solid #000; */
     margin: auto;
@@ -21,7 +21,7 @@
 
     width: 49%;
     min-height: 60px;
-    background-color: #970044;
+    background-color:rgb(211, 8, 8);
     float: left;
 }
 .logo h1
@@ -46,7 +46,7 @@
 }
 .menu a:hover
 {
-    background-color: lightgreen;
+    background-color: rgb(66, 7, 169);
     color: black;
 }
 .slider
