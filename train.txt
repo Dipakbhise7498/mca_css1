@@ -1,0 +1,13 @@
+live change 
+open live server
+then update code on git using following commands
+1. git status 
+2. git add .
+3. git commit -m "Project updated2"
+4.git push -u origin layout2
+
+
+
+
+one repository many folder
+one FOLDER many repository not allowed 
